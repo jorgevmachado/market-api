@@ -1,0 +1,11 @@
+version: '3.5'
+services:
+  market-api:
+    ports:
+      - 1990:80
+    networks:
+      - docker-network
+networks:
+  docker-network:
+    driver: bridge
+    name: 'docker-network-default'

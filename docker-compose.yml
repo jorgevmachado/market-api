@@ -1,0 +1,13 @@
+version: '3.5'
+services:
+  market-api:
+    image: jbcisne/centos7-php7-oci
+    container_name: market-api
+    volumes:
+    - .:/var/www/html/market-api
+    - ./config/apache.conf:/etc/httpd/conf.d/market-api.conf
+#    - ./config/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+networks:
+  default:
+    external:
+      name: dev.machado.com.br
