@@ -1,2 +1,1 @@
-sicam-api
 # market-api
