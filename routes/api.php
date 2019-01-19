@@ -17,11 +17,14 @@ use Illuminate\Http\Request;
  * PUBLIC
  */
 
-// ESTADO
+// Estados
 Route::resource('estados', 'EstadoController', ['except' => ['create', 'edit', 'destroy']]);
 
-// CIDADE
+// Cidades
 Route::resource('cidades', 'CidadeController');
 
-// Fabricante
+// Fabricantes
 Route::resource('fabricantes', 'FabricanteController');
+
+// Unidades
+Route::resource('unidades', 'UnidadeController');

@@ -40,15 +40,11 @@ final class ExcluirCidadeHandler
             $cidade = $this->cidadeRepository->find($command->getCidadeId());
             if(is_numeric($cidade->getId()) !== 0) {
                 $this->cidadeRepository->remove($cidade);
-                $this->cidadeRepository->add($cidade);
             }
             $this->em->commit();
         } catch (\Exception $e) {
             $this->em->rollback();
             throw $e;
         }
-
     }
-
-
 }
