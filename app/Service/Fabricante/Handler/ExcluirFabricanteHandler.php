@@ -40,7 +40,6 @@ final class ExcluirFabricanteHandler
             $fabricante = $this->fabricanteRepository->find($command->getFabricanteId());
             if(is_numeric($fabricante->getId()) !== 0) {
                 $this->fabricanteRepository->remove($fabricante);
-                $this->fabricanteRepository->add($fabricante);
             }
             $this->em->commit();
         } catch (\Exception $e) {

@@ -17,7 +17,7 @@ CREATE TABLE STORE.FABRICANTE (
                                 NU_FABRICANTE            NUMBER(10)
                                   GENERATED AS IDENTITY ( START WITH 1 INCREMENT BY 1 NOCYCLE NOCACHE NOORDER)  NOT NULL,
                                 NO_FABRICANTE            VARCHAR2(200 CHAR)  NOT NULL,
-                                LK_FABRICANTE            VARCHAR2(128),
+                                LK_FABRICANTE            VARCHAR2(128 CHAR) NOT NULL,
                                 CONSTRAINT FABRICANTE_PK PRIMARY KEY (NU_FABRICANTE)
 );
 

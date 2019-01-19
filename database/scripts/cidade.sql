@@ -17,7 +17,7 @@ CREATE TABLE STORE.CIDADE (
                             NU_CIDADE            NUMBER(10)
                               GENERATED AS IDENTITY ( START WITH 1 INCREMENT BY 1 NOCYCLE NOCACHE NOORDER)  NOT NULL,
                             NO_CIDADE            VARCHAR2(200 CHAR)  NOT NULL,
-                            NU_ESTADO            NUMBER(10),
+                            NU_ESTADO            NUMBER(10) NOT NULL,
                             CONSTRAINT CIDADE_PK PRIMARY KEY (NU_CIDADE),
                             CONSTRAINT ESTADO_CIDADE_FK FOREIGN KEY (NU_ESTADO) REFERENCES STORE.ESTADO(NU_ESTADO)
 );

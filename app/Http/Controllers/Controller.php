@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constants;
-use App\Exceptions\KeycloakException;
 use App\MensagemSistema;
-use App\Service\KeycloakService;
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManager;
 use Illuminate\Foundation\Bus\DispatchesJobs;
