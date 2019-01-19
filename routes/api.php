@@ -16,4 +16,9 @@ use Illuminate\Http\Request;
 /*
  * PUBLIC
  */
-Route::resource('estado', 'EstadoController', ['except' => ['create', 'edit', 'destroy']]);
+
+// ESTADO
+Route::resource('estados', 'EstadoController', ['except' => ['create', 'edit', 'destroy']]);
+
+// CIDADE
+Route::resource('cidades', 'CidadeController');
