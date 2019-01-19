@@ -22,3 +22,6 @@ Route::resource('estados', 'EstadoController', ['except' => ['create', 'edit', '
 
 // CIDADE
 Route::resource('cidades', 'CidadeController');
+
+// Fabricante
+Route::resource('fabricantes', 'FabricanteController');

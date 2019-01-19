@@ -8,9 +8,9 @@ class MensagemSistema
         '0' => 'Mensagem não definida',
         'DB001' => 'Ocorreu um erro durante o processamento dos dados.',
 
-        'MSG001' => 'Cidade salva com sucesso!',
-        'MSG002' => 'Cidade atualizada com sucesso!',
-        'MSG003' => 'Cidade excluida com sucesso!',
+        'MSG001' => 'Salvo com Sucesso!',
+        'MSG002' => 'Atualizado com Sucesso!',
+        'MSG003' => 'Excluido com Sucesso!',
 
     ];
 
