@@ -28,16 +28,15 @@ COMMENT ON COLUMN STORE.UNIDADE.NU_UNIDADE IS
 'Chave única da tabela PK, identity, identifica a unicidade do registro.';
 
 COMMENT ON COLUMN STORE.UNIDADE.SG_UNIDADE IS
-'Nome da Unidade.';
-
-COMMENT ON COLUMN STORE.UNIDADE.SG_UNIDADE IS
 'Sigla da Unidade.';
 
+COMMENT ON COLUMN STORE.UNIDADE.NO_UNIDADE IS
+'Nome da Unidade.';
 
 /*==============================================================*/
-/* Index: NOME_UNIDADE_I                                   */
+/* Index: SIGLA_UNIDADE_I                                   */
 /*==============================================================*/
-CREATE INDEX STORE.NOME_UNIDADE_I ON STORE.UNIDADE (
+CREATE INDEX STORE.SIGLA_UNIDADE_I ON STORE.UNIDADE (
 SG_UNIDADE ASC
 );
 
