@@ -1,20 +1,23 @@
 # VLT - VELOCITY LANGUAGE TEMPLATE 
+    PhpStorm -> File / new ( Alt+Insert) / Edit File Templates
+     tipo FILES 
+     tipo INCLUDES
 
-## REPOSITORY TEMPLATE 
+## FILES REPOSITORY TEMPLATE 
     
     <?php
     namespace App\Repository;
     class ${NAME} extends EntityRepositoryWithPaginator{
     }
     
-## REPOSITORYFILTER TEMPLATE 
+## FILES REPOSITORYFILTER TEMPLATE 
 
     <?php
     namespace App\RepositoryFilter;
     class ${NAME}Filter extends AbstractQueryFilter{
     }   
 
-## ENTITY  TEMPLATE  
+## FILES ENTITY  TEMPLATE  
 
         <?php
         #set($id ="$id")
@@ -43,7 +46,7 @@
           private $id;
          }
 
-## COMMAND TEMPLATE 
+## FILES COMMAND TEMPLATE 
 
     <?php
     namespace App\Service\\${NAMESPACE}\Command;
@@ -82,7 +85,7 @@
     final class ${NAME} extends Command{ 
     }
 
-## HANDLER TEMPLATE 
+## FILES HANDLER TEMPLATE 
 
     <?php
     #set($repository = "$repository")
@@ -220,7 +223,7 @@
     $command->get${NAMESPACE}());
     $this->repository->add($entity);
 
-## CONTROLLER TEMPLATE 
+## FILES CONTROLLER TEMPLATE 
 
     <?php
     #set($repository = "$repository")
@@ -348,8 +351,7 @@
     return new JsonResponse([Constants::MESSAGE => MensagemSistema::get('MSG003')]);
     }
 
-## BaseCommand
-### App/Service/BaseCommand
+## FILES BaseCommand
 
     <?php
     #set($id = "$id")
