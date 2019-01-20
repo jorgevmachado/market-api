@@ -28,3 +28,6 @@ Route::resource('fabricantes', 'FabricanteController');
 
 // Unidades
 Route::resource('unidades', 'UnidadeController');
+
+// Tipos
+Route::resource('tipos', 'TipoController');
