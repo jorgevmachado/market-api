@@ -31,3 +31,7 @@ Route::resource('unidades', 'UnidadeController');
 
 // Tipos
 Route::resource('tipos', 'TipoController');
+
+// Produtos
+Route::resource('produtos', 'ProdutoController');
+

@@ -2,7 +2,7 @@
 
 namespace App\Service\BaseCommand;
 
-class ExcluirCommand
+class Command
 {
     /**
      * @var int
@@ -10,7 +10,7 @@ class ExcluirCommand
     private $id;
 
     /**
-     * ExcluirCommand constructor.
+     * Command constructor.
      * @param int $id
      */
     public function __construct(int $id)
