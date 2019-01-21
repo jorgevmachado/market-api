@@ -35,3 +35,9 @@ Route::resource('tipos', 'TipoController');
 // Produtos
 Route::resource('produtos', 'ProdutoController');
 
+// Grupos
+Route::get('grupos-list', 'GrupoController@list');
+Route::resource('grupos', 'GrupoController', ['except' => ['create', 'edit', 'destroy']]);
+
+
+
