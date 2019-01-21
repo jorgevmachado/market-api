@@ -52,9 +52,8 @@ class Produto
     /**
      * @var float
      * @ORM\Column(
-     *     name="vl_estoque",
-     *     type="float",
-     *     length=7,8,
+     *     name="vl_custo",
+     *     type="decimal",
      *     options={"comment":"Valor de custo do produto."}
      * )
      */
@@ -63,9 +62,8 @@ class Produto
     /**
      * @var float
      * @ORM\Column(
-     *     name="vl_estoque",
-     *     type="float",
-     *     length=7,8,
+     *     name="vl_venda",
+     *     type="decimal",
      *     options={"comment":"Valor de venda do produto."}
      * )
      */
