@@ -241,8 +241,11 @@
     #set($this- = "$this-")
     #set($id = "$id")
     namespace App\Http\Controllers;
+    #if ($Store_1 == 1 || $Update_1 == 1 || $Destroy_1 == 1)
     use App\Constants;
     use App\MensagemSistema;
+    #else
+    #end
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
     use App\Repository\\${NAMESPACE}Repository;
@@ -265,7 +268,7 @@
     use App\Service\\${NAMESPACE}\Handler\Excluir${NAMESPACE}Handler; 
     #else
     #end
-    class ${NAME} {
+    class ${NAME} extends Controller {
     /**
     * @var ${NAMESPACE}Repository 
     */
@@ -296,6 +299,10 @@
     #end
     #if ($Destroy_1 == 1)
     #parse("Destroy.php")
+    #else
+    #end
+    #if ($List_1 == 1)
+    #parse("List.php")
     #else
     #end
     }
@@ -349,6 +356,12 @@
     $bus = $this->getBus(Excluir${NAMESPACE}Command::class, $handler);
     $bus->handle(new Excluir${NAMESPACE}Command($id));
     return new JsonResponse([Constants::MESSAGE => MensagemSistema::get('MSG003')]);
+    }
+
+### INCLUDES #parse("List.php") IF List = 1    
+
+    public function list(){
+    return new JsonResponse($this->repository->findAll());
     }
 
 ## FILES BaseCommand
