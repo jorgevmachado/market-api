@@ -42,5 +42,8 @@ Route::resource('grupos', 'GrupoController', ['except' => ['create', 'edit', 'de
 // Pessoas
 Route::resource('pessoas', 'PessoaController');
 
+// Vendas
+Route::resource('vendas', 'VendaController');
+
 
 

@@ -73,7 +73,7 @@ class Venda
     /**
      * @var float
      * @ORM\Column(
-     *     name="vl_acrescimo",
+     *     name="vl_final",
      *     type="decimal",
      *     options={"comment":"Valor final da venda."}
      * )
