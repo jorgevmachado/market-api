@@ -2,29 +2,9 @@
 
 namespace App\Service\Cidade\Command;
 
+use App\Service\BaseCommand\Command;
 
-final class ExcluirCidadeCommand
+final class ExcluirCidadeCommand extends Command
 {
 
-    /**
-     * @var int
-     */
-    private $cidadeId;
-
-    /**
-     * ExcluirCidadeCommand constructor.
-     * @param int $cidadeId
-     */
-    public function __construct(int $cidadeId)
-    {
-        $this->cidadeId = $cidadeId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCidadeId(): int
-    {
-        return $this->cidadeId;
-    }
 }

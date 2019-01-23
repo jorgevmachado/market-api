@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as JMS;
-
 /**
  * @codeCoverageIgnore
  *
@@ -40,7 +38,7 @@ class Conta
     /**
      * @var \DateTime
      * @ORM\Column(
-     *     name="dt_emissao",
+     *     name="dt_vencimento",
      *     type="datetime",
      *     options={"comment":"Data de vencimento da conta."}
      * )

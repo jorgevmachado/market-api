@@ -45,5 +45,8 @@ Route::resource('pessoas', 'PessoaController');
 // Vendas
 Route::resource('vendas', 'VendaController');
 
+// Contas
+Route::resource('contas', 'ContaController');
+
 
 

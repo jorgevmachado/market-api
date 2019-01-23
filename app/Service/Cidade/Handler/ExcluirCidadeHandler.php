@@ -17,17 +17,17 @@ final class ExcluirCidadeHandler
     /**
      * @var CidadeRepository
      */
-    private $cidadeRepository;
+    private $repository;
 
     /**
      * ExcluirCidadeHandler constructor.
      * @param EntityManager $em
-     * @param CidadeRepository $cidadeRepository
+     * @param CidadeRepository $repository
      */
-    public function __construct(EntityManager $em, CidadeRepository $cidadeRepository)
+    public function __construct(EntityManager $em, CidadeRepository $repository)
     {
         $this->em = $em;
-        $this->cidadeRepository = $cidadeRepository;
+        $this->repository = $repository;
     }
 
     public function handle(ExcluirCidadeCommand $command)
@@ -35,11 +35,11 @@ final class ExcluirCidadeHandler
         $this->em->beginTransaction();
         try{
             /**
-             * @var Cidade $cidade
+             * @var Cidade $entity
              */
-            $cidade = $this->cidadeRepository->find($command->getCidadeId());
-            if(is_numeric($cidade->getId()) !== 0) {
-                $this->cidadeRepository->remove($cidade);
+            $entity = $this->repository->find($command->getId());
+            if(is_numeric($entity->getId()) !== 0) {
+                $this->repository->remove($entity);
             }
             $this->em->commit();
         } catch (\Exception $e) {

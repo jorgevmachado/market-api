@@ -9,7 +9,7 @@ final class EditarCidadeCommand
     /**
      * @var int
      */
-    private $cidadeId;
+    private $id;
     /**
      * @var int
      */
@@ -22,16 +22,16 @@ final class EditarCidadeCommand
 
     /**
      * IncluirCidadeCommand constructor.
-     * @param int $cidadeId
+     * @param int $id
      * @param int $estadoId
      * @param string $cidade
      */
     public function __construct(
-        int $cidadeId,
+        int $id,
         int $estadoId,
         string $cidade
     ){
-        $this->cidadeId = $cidadeId;
+        $this->id = $id;
         $this->estadoId = $estadoId;
         $this->cidade = $cidade;
 
@@ -40,9 +40,9 @@ final class EditarCidadeCommand
     /**
      * @return int
      */
-    public function getCidadeId(): int
+    public function getId(): int
     {
-        return $this->cidadeId;
+        return $this->id;
     }
 
     /**
