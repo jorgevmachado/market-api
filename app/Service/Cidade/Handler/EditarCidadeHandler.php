@@ -20,7 +20,7 @@ final class EditarCidadeHandler
     /**
      * @var CidadeRepository
      */
-    private $cidadeRepository;
+    private $repository;
 
     /**
      * @var EstadoRepository
@@ -30,16 +30,16 @@ final class EditarCidadeHandler
     /**
      * EditarCidadeHandler constructor.
      * @param EntityManager $em
-     * @param CidadeRepository $cidadeRepository
+     * @param CidadeRepository $repository
      * @param EstadoRepository $estadoRepository
      */
     public function __construct(
         EntityManager $em,
-        CidadeRepository $cidadeRepository,
+        CidadeRepository $repository,
         EstadoRepository $estadoRepository
     ){
         $this->em = $em;
-        $this->cidadeRepository = $cidadeRepository;
+        $this->repository = $repository;
         $this->estadoRepository = $estadoRepository;
     }
 
@@ -48,21 +48,21 @@ final class EditarCidadeHandler
         $this->em->beginTransaction();
         try {
             /**
-             * @var Cidade $cidade
+             * @var Cidade $entity
              */
-            $cidade = $this->cidadeRepository->find($command->getCidadeId());
+            $entity = $this->repository->find($command->getId());
 
             /**
              * @var Estado $estado
              */
             $estado = $this->estadoRepository->find($command->getEstadoId());
 
-            if((is_numeric($cidade->getId()) !== 0) && (is_numeric($estado->getId()) != 0)) {
-                $cidade
+            if((is_numeric($entity->getId()) !== 0) && (is_numeric($estado->getId()) != 0)) {
+                $entity
                     ->setCidade($command->getCidade())
                     ->setEstado($estado);
 
-                $this->cidadeRepository->add($cidade);
+                $this->repository->add($entity);
                 $this->em->commit();
             }
 

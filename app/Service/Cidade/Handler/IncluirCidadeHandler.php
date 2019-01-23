@@ -2,7 +2,6 @@
 
 namespace App\Service\Cidade\Handler;
 
-
 use App\Entity\Cidade;
 use App\Entity\Estado;
 use App\Repository\CidadeRepository;
@@ -20,7 +19,7 @@ final class IncluirCidadeHandler
     /**
      * @var CidadeRepository
      */
-    private $cidadeRepository;
+    private $repository;
 
     /**
      * @var EstadoRepository
@@ -30,16 +29,16 @@ final class IncluirCidadeHandler
     /**
      * IncluirCidadeHandler constructor.
      * @param EntityManager $em
-     * @param CidadeRepository $cidadeRepository
+     * @param CidadeRepository $repository
      * @param EstadoRepository $estadoRepository
      */
     public function __construct(
         EntityManager $em,
-        CidadeRepository $cidadeRepository,
+        CidadeRepository $repository,
         EstadoRepository $estadoRepository
     ){
         $this->em = $em;
-        $this->cidadeRepository = $cidadeRepository;
+        $this->repository = $repository;
         $this->estadoRepository = $estadoRepository;
     }
 
@@ -48,18 +47,18 @@ final class IncluirCidadeHandler
         $this->em->beginTransaction();
         try {
 
-            $estado = $this->em->getReference(Estado::class,$command->getEstado());
-            $cidade = new Cidade (
+             /** @var Estado $estado */
+            $estado = $this->estadoRepository->find($command->getEstado());
+
+            $entity = new Cidade (
                     $command->getCidade(),
                     $estado
             );
-            $this->cidadeRepository->add($cidade);
+            $this->repository->add($entity);
             $this->em->commit();
-            return $cidade;
         } catch (\Exception $e) {
             $this->em->rollback();
             throw $e;
         }
     }
-
 }

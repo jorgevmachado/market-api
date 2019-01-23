@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  * @codeCoverageIgnore
@@ -102,28 +101,28 @@ class Venda
      * Venda constructor.
      * @param \DateTime $dataVenda
      * @param float $valorVenda
-     * @param float $desconto
-     * @param float $acrescimo
      * @param float $valorFinal
      * @param string $observacao
      * @param Pessoa $cliente
+     * @param float|null $desconto
+     * @param float|null $acrescimo
      */
     public function __construct(
         \DateTime $dataVenda,
         float $valorVenda,
-        float $desconto,
-        float $acrescimo,
         float $valorFinal,
         string $observacao,
-        Pessoa $cliente
+        Pessoa $cliente,
+        float $desconto = null,
+        float $acrescimo = null
     ){
         $this->dataVenda = $dataVenda;
         $this->valorVenda = $valorVenda;
-        $this->desconto = $desconto;
-        $this->acrescimo = $acrescimo;
         $this->valorFinal = $valorFinal;
         $this->observacao = $observacao;
         $this->cliente = $cliente;
+        $this->desconto = $desconto;
+        $this->acrescimo = $acrescimo;
     }
 
     /**
@@ -153,7 +152,7 @@ class Venda
     /**
      * @return float
      */
-    public function getDesconto(): float
+    public function getDesconto():? float
     {
         return $this->desconto;
     }
@@ -161,7 +160,7 @@ class Venda
     /**
      * @return float
      */
-    public function getAcrescimo(): float
+    public function getAcrescimo():? float
     {
         return $this->acrescimo;
     }
@@ -214,7 +213,7 @@ class Venda
      * @param float $desconto
      * @return Venda
      */
-    public function setDesconto(float $desconto): Venda
+    public function setDesconto(float $desconto):? Venda
     {
         $this->desconto = $desconto;
         return $this;
@@ -224,7 +223,7 @@ class Venda
      * @param float $acrescimo
      * @return Venda
      */
-    public function setAcrescimo(float $acrescimo): Venda
+    public function setAcrescimo(float $acrescimo):? Venda
     {
         $this->acrescimo = $acrescimo;
         return $this;
