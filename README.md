@@ -89,25 +89,6 @@ Depois usar o seguinte comando:
 
     php artisan vendor:publish --tag="config"
     
-    
-# Comandos basicos 
-
-Para criar a tabela no banco de dados 
-
-    php artisan doctrine:schema:create
-    
-Para Criar as Seeds no Banco de dados
-
-    php artisan db:seed
-    
-Para Recarregar o projeto
-
-    composer dump-autoload
-
-Para gerar Proxies
-    
-    php artisan doctrine:generate:proxies    
-    
 #Versoes
 
 <h2>PHP</h2> 
@@ -528,4 +509,88 @@ Para gerar Proxies
     return $this->id;
     }
     }
+ 
+## FILES Seeder
+
+    <?php
+    #set($repository = "$repository")
+    #set($repository- = "$repository-")
+    #set($em = "$em")
+    #set($em- = "$em-")
+    #set($this- = "$this-")
+    #set($entity = "$entity")
+    #set($entity- = "$entity-")
+    use Illuminate\Database\Seeder;
     
+    class ${NAME} extends Seeder{
+    /**
+    * @var \Doctrine\ORM\EntityManager
+    */
+    private $em;
+    /**
+    * @var \App\Repository\\${NAMESPACE}Repository
+    */
+    private $repository;
+    /**
+    * ${NAME} constructor
+    * @param \Doctrine\ORM\EntityManager $em
+    * @param \App\Repository\\${NAMESPACE}Repository $repository
+    */
+    public function __construct(
+    \Doctrine\ORM\EntityManager $em,
+    \App\Repository\\${NAMESPACE}Repository $repository){
+    $this->em = $em;
+    $this->repository = $repository;
+    }
+    public function run(){
+    $entity = new \App\Entity\\${NAMESPACE}();
+    $this->repository->add($entity);
+    }
+    }
+    
+## PLUGINS PhpStorm TOP 
+
+    GiyToolBox
+    SonarLint
+    String Manipulation
+    
+## Comandos Basicos DOCKER
+
+Comando para entar no container do docker
+
+    docker exec -it ID_CONTAINER /bin/bash
+    
+Comando para baixar o banco de dados oracle pelo docker
+
+    docker pull sath89/oracle-12c
+    
+Comando para criar e executar o banco de dados oracle pelo docker
+Lembrando que deve criar uma pasta chamada "data" dentro do diretorio
+onde o projeto for criado.  
+
+    docker run -p 1521:1521 -v /var/www/html/data:/u01/app/oracle sath89/oracle-12c
+
+## Comandos Basicos DOCTRINE
+
+Comando para excluir um banco de teste pelo doctrine
+
+    php artisan doctrine:schema:drop --force --env=testing
+
+Comando para criar o banco de teste pelo doctrine
+
+    php artisan doctrine:schema:create --env=testing
+
+Comando para rodar as seeds no banco de teste pelo doctrine
+
+    php artisan db:seed --env=testing
+
+
+## Comandos Basicos LARAVEL e COMPOSER
+    
+Para Recarregar o projeto
+    
+        composer dump-autoload
+    
+Para gerar Proxies
+        
+        php artisan doctrine:generate:proxies    
