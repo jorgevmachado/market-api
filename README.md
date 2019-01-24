@@ -560,12 +560,10 @@ Depois usar o seguinte comando:
     *  ${NAMESPACE}
     */
     class ${NAME} extends IntegrationTestCase{
-    protected function setUp(){
-    parent::setUp();
-    }
-    protected function tearDown(){
-    parent::tearDown();
-    }
+    #if ($Index_1 == 1 || $IndexFilter_1 == 1 || $Show_1 || $List_1 == 1)
+    public $entity = [
+    "id",
+    ];
     #if ($Index_1 == 1)
     #parse("TestIndex.php")
     #else
@@ -600,7 +598,7 @@ Depois usar o seguinte comando:
     public function testIndex${NAMESPACE}Sucesso(){
     $response = $this->get('api/${NAMESPACE}s');
     $response->assertStatus(200);
-    $response->assertJsonStructure($this->getPaginateStructure([["id"]]));
+    $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
     }
     public function testIndex${NAMESPACE}ErrorCaminhoErrado(){
     $response = $this->get('api/${NAMESPACE}ss');
@@ -609,7 +607,7 @@ Depois usar o seguinte comando:
     public function testIndex${NAMESPACE}ErrorEstruturaErrada(){
     $response = $this->get('api/${NAMESPACE}s');
     $response->assertStatus(500);
-    $response->assertJsonStructure($this->getPaginateStructure([["id"]]));
+    $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
     }
 
 ### INCLUDES #parse("TestIndexFilter.php") IF IndexFilter_1 = 1
@@ -618,7 +616,7 @@ Depois usar o seguinte comando:
     $payload = ["filter" => ["" => ""]];
     $response = $this->get('api/${NAMESPACE}s?payload='.json_encode($payload));
     $response->assertStatus(200);
-    $response->assertJsonStructure($this->getPaginateStructure([["id"]]));
+    $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
     }
     
 ### INCLUDES #parse("TestShow.php") IF Show_1 = 1
@@ -626,7 +624,7 @@ Depois usar o seguinte comando:
     public function testShow${NAMESPACE}Sucesso(){
     $response = $this->get('api/${NAMESPACE}s/1');
     $response->assertStatus(200);
-    $response->assertJsonStructure(["id"]);
+    $response->assertJsonStructure($this->entity);
     }
 
 ### INCLUDES #parse("TestStore.php") IF Store_1 = 1
@@ -668,7 +666,7 @@ Depois usar o seguinte comando:
     public function testList${NAMESPACE}Sucesso(){
     $response = $this->get('api/${NAMESPACE}s-list');
     $response->assertStatus(200);
-    $response->assertJsonStructure([["id"]]);
+    $response->assertJsonStructure([$this->entity]);
     }
 
 ## PLUGINS PhpStorm TOP 
