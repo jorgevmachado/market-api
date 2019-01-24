@@ -669,6 +669,135 @@ Depois usar o seguinte comando:
     $response->assertJsonStructure([$this->entity]);
     }
 
+
+
+## ARRUMAR DEPOIS 
+
+    <?php
+    #set($response = "$response")
+    #set($response- = "$response-")
+    #set($this- = "$this-")
+    #set($entity = "$entity")
+    #set($filter = "$filter")
+    #set($save = "$save")
+    #set($message = "$message")
+    namespace Tests\Integration\Http\Controller;
+    use Tests\Integration\IntegrationTestCase;
+    /**
+    *  ${NAMESPACE}
+    */
+    class ${NAME} extends IntegrationTestCase{
+    #if ($Store_1 == 1 || $Update_1 == 1 )
+    const MESSAGE = 'message';
+    #else
+    #end
+    #if ($Index_1 == 1 || $IndexFilter_1 == 1 || $Show_1 || $List_1 == 1)
+    const ID = 'id';
+    public $entity = [
+    self::ID,
+    ];
+    #else
+    #end
+    #if ($IndexFilter_1 == 1)
+    public $filter = ["filter" => ["" => ""]];
+    #else
+    #end
+    #if ($Store_1 == 1 || $Update_1 == 1 )
+    public $save = ["" =>  ""];
+    #else
+    #end
+    #if ($Index_1 == 1)
+    #parse("TestIndex.php")
+    #else
+    #end
+    #if ($IndexFilter_1 == 1)
+    #parse("TestIndexFilter.php")
+    #else
+    #end
+    #if ($Show_1 == 1)
+    #parse("TestShow.php")
+    #else
+    #end
+    #if ($Store_1 == 1)
+    #parse("TestStore.php")
+    #else
+    #end
+    #if ($Update_1 == 1)
+    #parse("TestUpdate.php")
+    #else
+    #end
+    #if ($Destroy_1 == 1)
+    #parse("TestDestroy.php")
+    #else
+    #end
+    #if ($List_1 == 1)
+    #parse("TestList.php")
+    #else
+    #end
+    }  
+    
+    public function testUpdate${NAMESPACE}Sucesso(){
+    $response = $this->put('api/${NAMESPACE}s/1',$this->save);
+    $response->assertStatus(200);
+    $response->assertJson([
+    self::MESSAGE => 'Atualizado com Sucesso!'
+    ]);
+    }
+    
+    public function testStore${NAMESPACE}Sucesso(){
+    $response = $this->post('api/${NAMESPACE}s',$this->save);
+    $response->assertStatus(200);
+    $response->assertJson([
+    self::MESSAGE => 'Salvo com Sucesso!'
+    ]);
+    }
+    
+    public function testShow${NAMESPACE}Sucesso(){
+    $response = $this->get('api/${NAMESPACE}s/1');
+    $response->assertStatus(200);
+    $response->assertJsonStructure($this->entity);
+    }
+    
+    public function testList${NAMESPACE}Sucesso(){
+    $response = $this->get('api/${NAMESPACE}s-list');
+    $response->assertStatus(200);
+    $response->assertJsonStructure([$this->entity]);
+    }
+    
+    public function testIndex${NAMESPACE}FilterSucesso(){
+    $payload = $this->filter;
+    $response = $this->get('api/${NAMESPACE}s?payload='.json_encode($payload));
+    $response->assertStatus(200);
+    $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
+    }
+    
+    public function testIndex${NAMESPACE}Sucesso(){
+    $response = $this->get('api/${NAMESPACE}s');
+    $response->assertStatus(200);
+    $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
+    }
+    public function testIndex${NAMESPACE}ErrorCaminhoErrado(){
+    $response = $this->get('api/${NAMESPACE}ss');
+    $response->assertStatus(404);
+    }
+    public function testIndex${NAMESPACE}ErrorEstruturaErrada(){
+    $response = $this->get('api/${NAMESPACE}s');
+    $response->assertStatus(500);
+    $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
+    }
+    
+    public function testDelete${NAMESPACE}Sucesso(){
+    $response = $this->delete('api/${NAMESPACE}s/2');
+    $response->assertStatus(200);
+    $response->assertJson([
+    self::MESSAGE => 'Excluido com Sucesso!'
+    ]);
+    }
+    public function testDelete${NAMESPACE}Error(){
+    $response = $this->delete('api/${NAMESPACE}s/99999');
+    $response->assertStatus(500);
+    }
+
 ## PLUGINS PhpStorm TOP 
 
     GiyToolBox
