@@ -9,93 +9,66 @@ use Tests\Integration\IntegrationTestCase;
  */
 class PessoaControllerTest extends IntegrationTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-    }
-
-    protected function tearDown()
-    {
-        parent::tearDown();
-    }
+    const CIDADE = 'cidade';
+    const ESTADO = 'estado';
+    const MESSAGE = 'message';
+    
+    public $entity = [
+        "id",
+        "pessoa",
+        "endereco",
+        "bairro",
+        "telefone",
+        "email",
+        self::CIDADE => [
+            "id",
+            self::CIDADE,
+            self::ESTADO => [
+                "id",
+                "sigla",
+                "estado"
+            ]
+        ]
+    ];
+    
+    public $save = [
+        "pessoa" => "Marina Alves Ferreira",
+        "endereco" => "SQN 108 BLOCO E AP 603",
+        "bairro" => "ASA NORTE",
+        "telefone" => "(61)99810835",
+        "email" => "marininha_70@hotmail.com",
+        self::CIDADE => 7
+    ];
 
     public function testIndexPessoaSucesso()
     {
         $response = $this->get('api/pessoas');
         $response->assertStatus(200);
-        $response->assertJsonStructure($this->getPaginateStructure([[
-            "id",
-            "pessoa",
-            "endereco",
-            "bairro",
-            "telefone",
-            "email",
-            "cidade" => [
-                "id",
-                "cidade",
-                "estado" => [
-                    "id",
-                    "sigla",
-                    "estado"
-                ]
-            ]
-        ]]));
+        $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
     }
 
     public function testShowPessoaSucesso()
     {
         $response = $this->get('api/pessoas/1');
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            "id",
-            "pessoa",
-            "endereco",
-            "bairro",
-            "telefone",
-            "email",
-            "cidade" => [
-                "id",
-                "cidade",
-                "estado" => [
-                    "id",
-                    "sigla",
-                    "estado"
-                ]
-            ]
-        ]);
+        $response->assertJsonStructure($this->entity);
     }
 
     public function testStorePessoaSucesso()
     {
-        $response = $this->post('api/pessoas',
-            [
-                "pessoa" => "Marina Alves Ferreira",
-                "endereco" => "SQN 108 BLOCO E AP 603",
-                "bairro" => "ASA NORTE",
-                "telefone" => "(61)99810835",
-                "email" => "marininha_70@hotmail.com",
-                "cidade" => 7
-            ]);
+        $response = $this->post('api/pessoas',$this->save);
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Salvo com Sucesso!'
+            self::MESSAGE => 'Salvo com Sucesso!'
         ]);
     }
 
     public function testUpdatePessoaSucesso()
     {
-        $response = $this->put('api/pessoas/1',
-            [
-                "pessoa" => "Marina Alves Ferreira",
-                "endereco" => "SQN 108 BLOCO E AP 603",
-                "bairro" => "ASA NORTE",
-                "telefone" => "(61)99810835",
-                "email" => "marininha_70@hotmail.com",
-                "cidade" => 7
-            ]);
+        $response = $this->put('api/pessoas/1',$this->save);
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Atualizado com Sucesso!'
+            self::MESSAGE => 'Atualizado com Sucesso!'
         ]);
     }
 
@@ -104,7 +77,7 @@ class PessoaControllerTest extends IntegrationTestCase
         $response = $this->delete('api/pessoas/2');
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Excluido com Sucesso!'
+            self::MESSAGE => 'Excluido com Sucesso!'
         ]);
     }
 

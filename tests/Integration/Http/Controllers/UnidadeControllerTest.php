@@ -9,53 +9,50 @@ use Tests\Integration\IntegrationTestCase;
  */
 class UnidadeControllerTest extends IntegrationTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-    }
-
-    protected function tearDown()
-    {
-        parent::tearDown();
-    }
+    const MESSAGE = 'message';
+    const SIGLA = 'sigla';
+    const UNIDADE = 'unidade';
+    public $entity = ["id",self::SIGLA,self::UNIDADE];
+    public $filter = ["filter" => [self::SIGLA => "cm",self::UNIDADE=>"Centímetro"]];
+    public $save = [self::SIGLA => "jl",self::UNIDADE=>"jorge machado"];
 
     public function testIndexUnidadeSucesso()
     {
         $response = $this->get('api/unidades');
         $response->assertStatus(200);
-        $response->assertJsonStructure($this->getPaginateStructure([["id","sigla","unidade"]]));
+        $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
     }
 
     public function testIndexUnidadeFilterSucesso()
     {
-        $payload = ["filter" => ["sigla" => "cm","unidade"=>"Centímetro"]];
+        $payload = $this->filter;
         $response = $this->get('api/unidades?payload=' . json_encode($payload));
         $response->assertStatus(200);
-        $response->assertJsonStructure($this->getPaginateStructure([["id","sigla","unidade"]]));
+        $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
     }
 
     public function testShowUnidadeSucesso()
     {
         $response = $this->get('api/unidades/1');
         $response->assertStatus(200);
-        $response->assertJsonStructure(["id","sigla","unidade"]);
+        $response->assertJsonStructure($this->entity);
     }
 
     public function testStoreUnidadeSucesso()
     {
-        $response = $this->post('api/unidades', ["sigla" => "jl","unidade"=>"jorge machado"]);
+        $response = $this->post('api/unidades', $this->save);
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Salvo com Sucesso!'
+            self::MESSAGE => 'Salvo com Sucesso!'
         ]);
     }
 
     public function testUpdateUnidadeSucesso()
     {
-        $response = $this->put('api/unidades/1', ["sigla" => "jl","unidade"=>"jorge machado"]);
+        $response = $this->put('api/unidades/1', $this->save);
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Atualizado com Sucesso!'
+            self::MESSAGE => 'Atualizado com Sucesso!'
         ]);
     }
 
@@ -64,7 +61,7 @@ class UnidadeControllerTest extends IntegrationTestCase
         $response = $this->delete('api/unidades/2');
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Excluido com Sucesso!'
+            self::MESSAGE => 'Excluido com Sucesso!'
         ]);
     }
 
@@ -72,6 +69,6 @@ class UnidadeControllerTest extends IntegrationTestCase
     {
         $response = $this->get('api/unidades-list');
         $response->assertStatus(200);
-        $response->assertJsonStructure([["id","sigla","unidade"]]);
+        $response->assertJsonStructure([$this->entity]);
     }
 }  

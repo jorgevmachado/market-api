@@ -9,53 +9,49 @@ use Tests\Integration\IntegrationTestCase;
  */
 class TipoControllerTest extends IntegrationTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-    }
+    const MESSAGE = 'message';
+    public $entity = ["id","tipo"];
+    public $filter = ["filter" => ["tipo" => "Insumo"]];
+    public $save = ["tipo" => "massa"];
 
-    protected function tearDown()
-    {
-        parent::tearDown();
-    }
 
     public function testIndexTipoSucesso()
     {
         $response = $this->get('api/tipos');
         $response->assertStatus(200);
-        $response->assertJsonStructure($this->getPaginateStructure([["id","tipo"]]));
+        $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
     }
 
     public function testIndexTipoFilterSucesso()
     {
-        $payload = ["filter" => ["tipo" => "Insumo"]];
+        $payload = $this->filter;
         $response = $this->get('api/tipos?payload=' . json_encode($payload));
         $response->assertStatus(200);
-        $response->assertJsonStructure($this->getPaginateStructure([["id","tipo"]]));
+        $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
     }
 
     public function testShowTipoSucesso()
     {
         $response = $this->get('api/tipos/1');
         $response->assertStatus(200);
-        $response->assertJsonStructure(["id","tipo"]);
+        $response->assertJsonStructure($this->entity);
     }
 
     public function testStoreTipoSucesso()
     {
-        $response = $this->post('api/tipos', ["tipo" => "massa"]);
+        $response = $this->post('api/tipos', $this->save);
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Salvo com Sucesso!'
+            self::MESSAGE => 'Salvo com Sucesso!'
         ]);
     }
 
     public function testUpdateTipoSucesso()
     {
-        $response = $this->put('api/tipos/1', ["tipo" => "carne"]);
+        $response = $this->put('api/tipos/1', $this->save);
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Atualizado com Sucesso!'
+            self::MESSAGE => 'Atualizado com Sucesso!'
         ]);
     }
 
@@ -64,7 +60,7 @@ class TipoControllerTest extends IntegrationTestCase
         $response = $this->delete('api/tipos/2');
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Excluido com Sucesso!'
+            self::MESSAGE => 'Excluido com Sucesso!'
         ]);
     }
 
@@ -72,6 +68,6 @@ class TipoControllerTest extends IntegrationTestCase
     {
         $response = $this->get('api/tipos-list');
         $response->assertStatus(200);
-        $response->assertJsonStructure([["id","tipo"]]);
+        $response->assertJsonStructure([$this->entity]);
     }
 }  
