@@ -9,65 +9,66 @@ use Tests\Integration\IntegrationTestCase;
  */
 class FabricanteControllerTest extends IntegrationTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-    }
+    const ID = 'id';
+    const FABRICANTE = 'fabricante';
+    const MESSAGE = 'message';
 
-    protected function tearDown()
-    {
-        parent::tearDown();
-    }
+
+    public $entity = [
+        self::ID,
+        self::FABRICANTE,
+        "site"
+    ];
+
+    public $filter = [
+        "filter" => [
+            self::FABRICANTE =>  "Amazon",
+            "site"=>"www.amazon.com"
+        ]
+    ];
+
+    public $save = [
+        self::FABRICANTE => "Amazon",
+        "site"=>"www.amazon.com"
+    ];
 
     public function testIndexFabricanteSucesso()
     {
         $response = $this->get('api/fabricantes');
         $response->assertStatus(200);
-        $response->assertJsonStructure($this->getPaginateStructure([[
-            "id",
-            "fabricante",
-            "site"
-        ]]));
+        $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
     }
 
     public function testIndexFabricanteFilterSucesso()
     {
-        $payload = ["filter" => ["fabricante" => "Seagate"]];
+        $payload = ["filter" => [self::FABRICANTE => "Seagate"]];
         $response = $this->get('api/fabricantes?payload=' . json_encode($payload));
         $response->assertStatus(200);
-        $response->assertJsonStructure($this->getPaginateStructure([[
-            "id",
-            "fabricante",
-            "site"
-        ]]));
+        $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
     }
 
     public function testShowFabricanteSucesso()
     {
         $response = $this->get('api/fabricantes/1');
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            "id",
-            "fabricante",
-            "site"
-        ]);
+        $response->assertJsonStructure($this->entity);
     }
 
     public function testStoreFabricanteSucesso()
     {
-        $response = $this->post('api/fabricantes', ["fabricante" => "Amazon","site"=>"www.amazon.com"]);
+        $response = $this->post('api/fabricantes', $this->save);
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Salvo com Sucesso!'
+            self::MESSAGE => 'Salvo com Sucesso!'
         ]);
     }
 
     public function testUpdateFabricanteSucesso()
     {
-        $response = $this->put('api/fabricantes/1', ["fabricante" => "Amazon","site"=>"www.amazon.com"]);
+        $response = $this->put('api/fabricantes/1', $this->save);
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Atualizado com Sucesso!'
+            self::MESSAGE => 'Atualizado com Sucesso!'
         ]);
     }
 
@@ -76,7 +77,7 @@ class FabricanteControllerTest extends IntegrationTestCase
         $response = $this->delete('api/fabricantes/2');
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Excluido com Sucesso!'
+            self::MESSAGE => 'Excluido com Sucesso!'
         ]);
     }
 
@@ -84,10 +85,6 @@ class FabricanteControllerTest extends IntegrationTestCase
     {
         $response = $this->get('api/fabricantes-list');
         $response->assertStatus(200);
-        $response->assertJsonStructure([[
-            "id",
-            "fabricante",
-            "site"
-        ]]);
+        $response->assertJsonStructure([$this->entity]);
     }
 }  
