@@ -547,7 +547,130 @@ Depois usar o seguinte comando:
     $this->repository->add($entity);
     }
     }
+
+## FILES ControllerTest
+
+    <?php
+    #set($response = "$response")
+    #set($response- = "$response-")
+    #set($this- = "$this-")
+    namespace Tests\Integration\Http\Controller;
+    use Tests\Integration\IntegrationTestCase;
+    /**
+    *  ${NAMESPACE}
+    */
+    class ${NAME} extends IntegrationTestCase{
+    protected function setUp(){
+    parent::setUp();
+    }
+    protected function tearDown(){
+    parent::tearDown();
+    }
+    #if ($Index_1 == 1)
+    #parse("TestIndex.php")
+    #else
+    #end
+    #if ($IndexFilter_1 == 1)
+    #parse("TestIndexFilter.php")
+    #else
+    #end
+    #if ($Show_1 == 1)
+    #parse("TestShow.php")
+    #else
+    #end
+    #if ($Store_1 == 1)
+    #parse("TestStore.php")
+    #else
+    #end
+    #if ($Update_1 == 1)
+    #parse("TestUpdate.php")
+    #else
+    #end
+    #if ($Destroy_1 == 1)
+    #parse("TestDestroy.php")
+    #else
+    #end
+    #if ($List_1 == 1)
+    #parse("TestList.php")
+    #else
+    #end
+    }  
     
+### INCLUDES #parse("TestIndex.php") IF Index_1 = 1    
+    public function testIndex${NAMESPACE}Sucesso(){
+    $response = $this->get('api/${NAMESPACE}s');
+    $response->assertStatus(200);
+    $response->assertJsonStructure($this->getPaginateStructure([["id"]]));
+    }
+    public function testIndex${NAMESPACE}ErrorCaminhoErrado(){
+    $response = $this->get('api/${NAMESPACE}ss');
+    $response->assertStatus(404);
+    }
+    public function testIndex${NAMESPACE}ErrorEstruturaErrada(){
+    $response = $this->get('api/${NAMESPACE}s');
+    $response->assertStatus(500);
+    $response->assertJsonStructure($this->getPaginateStructure([["id"]]));
+    }
+
+### INCLUDES #parse("TestIndexFilter.php") IF IndexFilter_1 = 1
+    
+    public function testIndex${NAMESPACE}FilterSucesso(){
+    $payload = ["filter" => ["" => ""]];
+    $response = $this->get('api/${NAMESPACE}s?payload='.json_encode($payload));
+    $response->assertStatus(200);
+    $response->assertJsonStructure($this->getPaginateStructure([["id"]]));
+    }
+    
+### INCLUDES #parse("TestShow.php") IF Show_1 = 1
+    
+    public function testShow${NAMESPACE}Sucesso(){
+    $response = $this->get('api/${NAMESPACE}s/1');
+    $response->assertStatus(200);
+    $response->assertJsonStructure(["id"]);
+    }
+
+### INCLUDES #parse("TestStore.php") IF Store_1 = 1
+    
+    public function testStore${NAMESPACE}Sucesso(){
+    $response = $this->post('api/${NAMESPACE}s',[""=>""]);
+    $response->assertStatus(200);
+    $response->assertJson([
+    'message' => 'Salvo com Sucesso!'
+    ]);
+    }
+
+### INCLUDES #parse("TestUpdate.php") IF Update_1 = 1
+
+    public function testUpdate${NAMESPACE}Sucesso(){
+    $response = $this->put('api/${NAMESPACE}s/1',[""=>""]);
+    $response->assertStatus(200);
+    $response->assertJson([
+    'message' => 'Atualizado com Sucesso!'
+    ]);
+    }
+
+### INCLUDES #parse("TestDestroy.php") IF Destroy_1 = 1
+
+    public function testDelete${NAMESPACE}Sucesso(){
+    $response = $this->delete('api/${NAMESPACE}s/2');
+    $response->assertStatus(200);
+    $response->assertJson([
+    'message' => 'Excluido com Sucesso!'
+    ]);
+    }
+    public function testDelete${NAMESPACE}Error(){
+    $response = $this->delete('api/${NAMESPACE}s/99999');
+    $response->assertStatus(500);
+    }
+
+### INCLUDES #parse("TestList.php") IF List_1 = 1
+
+    public function testList${NAMESPACE}Sucesso(){
+    $response = $this->get('api/${NAMESPACE}s-list');
+    $response->assertStatus(200);
+    $response->assertJsonStructure([["id"]]);
+    }
+
 ## PLUGINS PhpStorm TOP 
 
     GiyToolBox
