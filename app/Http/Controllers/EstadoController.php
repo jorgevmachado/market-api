@@ -13,16 +13,16 @@ class EstadoController extends Controller
     /**
      * @var EstadoRepository
      */
-    protected $estadoRepository;
+    protected $repository;
 
     /**
      * EstadoController constructor.
-     * @param EstadoRepository $estadoRepository
+     * @param EstadoRepository $repository
      */
-    public function __construct(EstadoRepository $estadoRepository)
+    public function __construct(EstadoRepository $repository)
     {
         parent::__construct();
-        $this->estadoRepository = $estadoRepository;
+        $this->repository = $repository;
     }
 
     public function index(Request $request)
@@ -38,12 +38,17 @@ class EstadoController extends Controller
         $page = $request->input('page') ? : 0;
 
         $filter = new EstadoFilter($payload);
-        return $this->estadoRepository->setPage($page)
+        return $this->repository->setPage($page)
             ->paginateByFilter($filter, true);
     }
 
     public function show($id)
     {
-        return new JsonResponse($this->estadoRepository->find($id));
+        return new JsonResponse($this->repository->find($id));
+    }
+
+    public function list()
+    {
+        return new JsonResponse($this->repository->findAll());
     }
 }

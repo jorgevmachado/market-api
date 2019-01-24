@@ -86,4 +86,9 @@ class UnidadeController extends Controller
         $bus->handle(new ExcluirUnidadeCommand($id));
         return new JsonResponse([Constants::MESSAGE => MensagemSistema::get('MSG003')]);
     }
+
+    public function list()
+    {
+        return new JsonResponse($this->repository->findAll());
+    }
 }
