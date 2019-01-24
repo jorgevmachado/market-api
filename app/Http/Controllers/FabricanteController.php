@@ -21,16 +21,16 @@ class FabricanteController extends Controller
     /**
      * @var FabricanteRepository
      */
-    protected $fabricanteRepository;
+    protected $repository;
 
     /**
      * FabricanteController constructor.
-     * @param FabricanteRepository $fabricanteRepository
+     * @param FabricanteRepository $repository
      */
-    public function __construct(FabricanteRepository $fabricanteRepository)
+    public function __construct(FabricanteRepository $repository)
     {
         parent::__construct();
-        $this->fabricanteRepository = $fabricanteRepository;
+        $this->repository = $repository;
     }
 
 
@@ -47,13 +47,13 @@ class FabricanteController extends Controller
         $page = $request->input('page') ? : 0;
 
         $filter = new FabricanteFilter($payload);
-        return $this->fabricanteRepository->setPage($page)
+        return $this->repository->setPage($page)
             ->paginateByFilter($filter, true);
     }
 
     public function show($id)
     {
-        return new JsonResponse($this->fabricanteRepository->find($id));
+        return new JsonResponse($this->repository->find($id));
     }
 
     public function store(Request $request)
@@ -86,5 +86,10 @@ class FabricanteController extends Controller
         $bus = $this->getBus(ExcluirFabricanteCommand::class, $handler);
         $bus->handle(new ExcluirFabricanteCommand($fabricanteId));
         return new JsonResponse([Constants::MESSAGE => MensagemSistema::get('MSG003')]);
+    }
+
+    public function list()
+    {
+        return new JsonResponse($this->repository->findAll());
     }
 }

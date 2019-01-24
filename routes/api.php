@@ -18,18 +18,22 @@ use Illuminate\Http\Request;
  */
 
 // Estados
+Route::get('estados-list', 'EstadoController@list');
 Route::resource('estados', 'EstadoController', ['except' => ['create', 'edit', 'destroy']]);
 
 // Cidades
 Route::resource('cidades', 'CidadeController');
 
 // Fabricantes
+Route::get('fabricantes-list', 'FabricanteController@list');
 Route::resource('fabricantes', 'FabricanteController');
 
 // Unidades
+Route::get('unidades-list', 'UnidadeController@list');
 Route::resource('unidades', 'UnidadeController');
 
 // Tipos
+Route::get('tipos-list', 'TipoController@list');
 Route::resource('tipos', 'TipoController');
 
 // Produtos
@@ -47,6 +51,3 @@ Route::resource('vendas', 'VendaController');
 
 // Contas
 Route::resource('contas', 'ContaController');
-
-
-

@@ -105,16 +105,6 @@ class Controller extends BaseController
     }
 
     /**
-     * @param Request $request
-     * @return bool
-     */
-    protected function isAdministrator(Request $request)
-    {
-        $myRoles = $request->attributes->get('roles');
-        return in_array('admin', $myRoles);
-    }
-
-    /**
      * @param string $title
      * @return Pdf
      * @throws \Throwable
@@ -163,21 +153,5 @@ class Controller extends BaseController
             $reponse->setStatusCode($e->getCode());
         }
         return $reponse;
-    }
-
-    protected function addRoleKeycloak($username, $roleName, $msgComplementar, $msgKeyUserNotFound)
-    {
-        try {
-            (new KeycloakService())->addRole($username, $roleName);
-            $msg = MensagemSistema::get('MSG027') . ' ' . $msgComplementar;
-        } catch (\Exception $e) {
-            if ($e->getCode() == KeycloakException::$STR_ERR_MSG_USER_NOT_FOUND['code']) {
-                $msg = MensagemSistema::get($msgKeyUserNotFound) . ' ' . $msgComplementar;
-            }
-            //escreve a mensagem de erro vinculada ao identificador
-            Log::error("[" . uniqid('keycloak_') . "] {$e->getMessage()}");
-        }
-
-        return $msg;
     }
 }

@@ -79,4 +79,9 @@ class TipoController extends Controller
         $bus->handle(new ExcluirTipoCommand($id));
         return new JsonResponse([Constants::MESSAGE => MensagemSistema::get('MSG003')]);
     }
+
+    public function list()
+    {
+        return new JsonResponse($this->repository->findAll());
+    }
 }
