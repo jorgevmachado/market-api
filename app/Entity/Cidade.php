@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @codeCoverageIgnore
- *
  * @ORM\Table(name="cidade")
  * @ORM\Entity(repositoryClass="App\Repository\CidadeRepository")
  */
@@ -62,25 +60,6 @@ class Cidade
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCidade(): string
-    {
-        return $this->cidade;
-    }
-
-    /**
-     * @return Estado
-     */
-    public function getEstado(): Estado
-    {
-        return $this->estado;
-
-
-
     }
 
     /**

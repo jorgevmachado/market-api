@@ -4,6 +4,11 @@ namespace App\Business;
 
 use Doctrine\ORM\EntityManager;
 
+/**
+ * @codeCoverageIgnore
+ * Class AbstractBusiness
+ * @package App\Business
+ */
 class AbstractBusiness
 {
     /**

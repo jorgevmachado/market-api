@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @codeCoverageIgnore
- *
  * @ORM\Table(name="fabricante")
  * @ORM\Entity(repositoryClass="App\Repository\FabricanteRepository")
  */
@@ -69,14 +67,6 @@ class Fabricante
     }
 
     /**
-     * @return string
-     */
-    public function getFabricante(): string
-    {
-        return $this->fabricante;
-    }
-
-    /**
      * @param string $fabricante
      * @return Fabricante
      */
@@ -84,14 +74,6 @@ class Fabricante
     {
         $this->fabricante = $fabricante;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSite(): string
-    {
-        return $this->site;
     }
 
     /**

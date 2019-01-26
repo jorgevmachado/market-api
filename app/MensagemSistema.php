@@ -11,7 +11,9 @@ class MensagemSistema
         'MSG001' => 'Salvo com Sucesso!',
         'MSG002' => 'Atualizado com Sucesso!',
         'MSG003' => 'Excluido com Sucesso!',
-
+        'LOG001' => 'Inclusão de dados',
+        'LOG002' => 'Edição de dados',
+        'LOG003' => 'Exclusão de dados',
     ];
 
     public static function get($key)

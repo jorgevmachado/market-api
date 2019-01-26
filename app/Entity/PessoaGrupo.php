@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @codeCoverageIgnore
- *
  * @ORM\Table(name="pessoa_grupo")
  * @ORM\Entity(repositoryClass="App\Repository\PessoaGrupoRepository")
  */
@@ -40,63 +38,4 @@ class PessoaGrupo
      * @ORM\JoinColumn(name="nu_grupo", referencedColumnName="nu_grupo")
      */
     private $grupo;
-
-    /**
-     * PessoaGrupo constructor.
-     * @param Pessoa $pessoa
-     * @param Grupo $grupo
-     */
-    public function __construct(
-        Pessoa $pessoa,
-        Grupo $grupo
-    )
-    {
-        $this->pessoa = $pessoa;
-        $this->grupo = $grupo;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return Pessoa
-     */
-    public function getPessoa(): Pessoa
-    {
-        return $this->pessoa;
-    }
-
-    /**
-     * @return Grupo
-     */
-    public function getGrupo(): Grupo
-    {
-        return $this->grupo;
-    }
-
-    /**
-     * @param Pessoa $pessoa
-     * @return PessoaGrupo
-     */
-    public function setPessoa(Pessoa $pessoa): PessoaGrupo
-    {
-        $this->pessoa = $pessoa;
-        return $this;
-    }
-
-    /**
-     * @param Grupo $grupo
-     * @return PessoaGrupo
-     */
-    public function setGrupo(Grupo $grupo): PessoaGrupo
-    {
-        $this->grupo = $grupo;
-        return $this;
-    }
-
 }

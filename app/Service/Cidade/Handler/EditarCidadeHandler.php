@@ -5,9 +5,12 @@ namespace App\Service\Cidade\Handler;
 
 use App\Entity\Cidade;
 use App\Entity\Estado;
+use App\Entity\HistoricoOperacao;
+use App\MensagemSistema;
 use App\Repository\CidadeRepository;
 use App\Repository\EstadoRepository;
 use App\Service\Cidade\Command\EditarCidadeCommand;
+use App\Service\HistoricoOperacaoService;
 use Doctrine\ORM\EntityManager;
 
 final class EditarCidadeHandler
@@ -28,19 +31,27 @@ final class EditarCidadeHandler
     private  $estadoRepository;
 
     /**
+     * @var HistoricoOperacaoService
+     */
+    private $log;
+
+    /**
      * EditarCidadeHandler constructor.
      * @param EntityManager $em
      * @param CidadeRepository $repository
      * @param EstadoRepository $estadoRepository
+     * @param HistoricoOperacaoService $log
      */
     public function __construct(
         EntityManager $em,
         CidadeRepository $repository,
-        EstadoRepository $estadoRepository
+        EstadoRepository $estadoRepository,
+        HistoricoOperacaoService $log
     ){
         $this->em = $em;
         $this->repository = $repository;
         $this->estadoRepository = $estadoRepository;
+        $this->log = $log;
     }
 
     public function handle(EditarCidadeCommand $command)
@@ -63,6 +74,12 @@ final class EditarCidadeHandler
                     ->setEstado($estado);
 
                 $this->repository->add($entity);
+
+                $this->log->addHistoricoCidade(
+                    HistoricoOperacao::TIPO_OP_UPDATE,
+                    $entity,
+                    MensagemSistema::get('LOG002')
+                );
                 $this->em->commit();
             }
 

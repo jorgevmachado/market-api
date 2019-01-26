@@ -3,11 +3,14 @@
 namespace App\Service\Produto\Handler;
 
 use App\Entity\Fabricante;
+use App\Entity\HistoricoOperacao;
 use App\Entity\Tipo;
 use App\Entity\Unidade;
+use App\MensagemSistema;
 use App\Repository\FabricanteRepository;
 use App\Repository\TipoRepository;
 use App\Repository\UnidadeRepository;
+use App\Service\HistoricoOperacaoService;
 use Doctrine\ORM\EntityManager;
 use App\Entity\Produto;
 use App\Repository\ProdutoRepository;
@@ -41,25 +44,33 @@ final class EditarProdutoHandler
     private $tipoRepository;
 
     /**
+     * @var HistoricoOperacaoService
+     */
+    private $log;
+
+    /**
      * IncluirCidadeHandler constructor.
      * @param EntityManager $em
      * @param ProdutoRepository $repository
      * @param FabricanteRepository $fabricanteRepository
      * @param UnidadeRepository $unidadeRepository
      * @param TipoRepository $tipoRepository
+     * @param HistoricoOperacaoService $log
      */
     public function __construct(
         EntityManager $em,
         ProdutoRepository $repository,
         FabricanteRepository $fabricanteRepository,
         UnidadeRepository $unidadeRepository,
-        TipoRepository $tipoRepository
+        TipoRepository $tipoRepository,
+        HistoricoOperacaoService $log
     ){
         $this->em = $em;
         $this->repository = $repository;
         $this->fabricanteRepository = $fabricanteRepository;
         $this->unidadeRepository = $unidadeRepository;
         $this->tipoRepository = $tipoRepository;
+        $this->log = $log;
     }
 
     public function handle(EditarProdutoCommand $command)
@@ -96,6 +107,11 @@ final class EditarProdutoHandler
                 ->setTipo($tipo);
 
             $this->repository->add($entity);
+            $this->log->addHistoricoProduto(
+                HistoricoOperacao::TIPO_OP_UPDATE,
+                $entity,
+                MensagemSistema::get('LOG002')
+            );
             $this->em->commit();
         } catch (\Exception $e) {
             $this->em->rollback();

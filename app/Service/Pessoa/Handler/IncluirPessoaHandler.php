@@ -3,7 +3,10 @@
 namespace App\Service\Pessoa\Handler;
 
 use App\Entity\Cidade;
+use App\Entity\HistoricoOperacao;
+use App\MensagemSistema;
 use App\Repository\CidadeRepository;
+use App\Service\HistoricoOperacaoService;
 use Doctrine\ORM\EntityManager;
 use App\Entity\Pessoa;
 use App\Repository\PessoaRepository;
@@ -26,20 +29,29 @@ final class IncluirPessoaHandler
     private $cidadeRepository;
 
     /**
-     * IncluirPessoaHandler constructor .
+     * @var HistoricoOperacaoService
+     */
+    private $log;
+
+    /**
+     * IncluirPessoaHandler constructor.
      * @param EntityManager $em
      * @param PessoaRepository $repository
      * @param CidadeRepository $cidadeRepository
+     * @param HistoricoOperacaoService $log
      */
     public function __construct(
         EntityManager $em,
         PessoaRepository $repository,
-        CidadeRepository $cidadeRepository
+        CidadeRepository $cidadeRepository,
+        HistoricoOperacaoService $log
     ){
         $this->em = $em;
         $this->repository = $repository;
         $this->cidadeRepository = $cidadeRepository;
+        $this->log = $log;
     }
+
 
     public function handle(IncluirPessoaCommand $command)
     {
@@ -60,6 +72,11 @@ final class IncluirPessoaHandler
                 $cidade
             );
             $this->repository->add($entity);
+            $this->log->addHistoricoPessoa(
+                HistoricoOperacao::TIPO_OP_INSERT,
+                $entity,
+                MensagemSistema::get('LOG001')
+            );
             $this->em->commit();
         } catch (\Exception $e) {
             $this->em->rollback();
