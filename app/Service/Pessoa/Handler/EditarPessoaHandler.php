@@ -54,7 +54,7 @@ final class EditarPessoaHandler
             $cidade = $this->cidadeRepository->find($command->getCidade());
             if (is_numeric($entity->getId()) !== 0 && is_numeric($cidade->getId()) !== 0 ) {
                 $entity
-                    ->setPessoa($command->getPessoa())
+                    ->setNome($command->getNome())
                     ->setEndereco($command->getEndereco())
                     ->setBairro($command->getBairro())
                     ->setTelefone($command->getTelefone())

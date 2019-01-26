@@ -52,7 +52,7 @@ final class IncluirPessoaHandler
              * @var Pessoa $entity
              */
             $entity = new Pessoa(
-                $command->getPessoa(),
+                $command->getNome(),
                 $command->getEndereco(),
                 $command->getBairro(),
                 $command->getTelefone(),

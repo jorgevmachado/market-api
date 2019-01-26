@@ -26,16 +26,10 @@ class VendaController extends Controller
 
     public function index(Request $request)
     {
-        $payload = $this->getPayloadData($request);
-        if (isset($payload['filter'])) {
-            $payload = array_filter($payload['filter'], function ($value) {
-                return trim($value) !== '';
-            });
-        }
         $page = $request->input('page') ?: 0;
-        $filter = new VendaFilter($payload);
+
         return $this->repository->setPage($page)
-            ->paginateByFilter($filter, true);
+            ->paginateAll();
     }
 
     public function show($id)

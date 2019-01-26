@@ -19,7 +19,7 @@ class VendaControllerTest extends IntegrationTestCase
         "observacao",
         "cliente"=> [
             "id",
-            "pessoa",
+            "nome",
             "endereco",
             "bairro",
             "telefone",

@@ -45,6 +45,19 @@ class ProdutoControllerTest extends IntegrationTestCase
        "tipo"=>1
    ];
 
+   public $filter = [
+       "filter" => [
+           "descricao"=>"Pendrive 512Mb",
+       ]
+   ];
+    public function testIndexProdutoFilterSucesso()
+    {
+        $payload = $this->filter;
+        $response = $this->get('api/produtos?payload='. json_encode($payload));
+        $response->assertStatus(200);
+        $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
+    }
+
 
     public function testIndexProdutoSucesso()
     {

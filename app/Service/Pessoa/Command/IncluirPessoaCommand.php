@@ -7,7 +7,7 @@ final class IncluirPessoaCommand
     /**
      * @var string
      */
-    private $pessoa;
+    private $nome;
 
     /**
      * @var string
@@ -36,7 +36,7 @@ final class IncluirPessoaCommand
 
     /**
      * IncluirPessoaCommand constructor.
-     * @param string $pessoa
+     * @param string $nome
      * @param string $endereco
      * @param string $bairro
      * @param string $telefone
@@ -44,7 +44,7 @@ final class IncluirPessoaCommand
      * @param int $cidade
      */
     public function __construct(
-        string $pessoa,
+        string $nome,
         string $endereco,
         string $bairro,
         string $telefone,
@@ -52,7 +52,7 @@ final class IncluirPessoaCommand
         int $cidade
     )
     {
-        $this->pessoa = $pessoa;
+        $this->nome = $nome;
         $this->endereco = $endereco;
         $this->bairro = $bairro;
         $this->telefone = $telefone;
@@ -63,9 +63,9 @@ final class IncluirPessoaCommand
     /**
      * @return string
      */
-    public function getPessoa(): string
+    public function getNome(): string
     {
-        return $this->pessoa;
+        return $this->nome;
     }
 
     /**
