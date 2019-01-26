@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @codeCoverageIgnore
- *
  * @ORM\Table(name="item_venda")
  * @ORM\Entity(repositoryClass="App\Repository\ItemVendaRepository")
  */
@@ -61,94 +59,4 @@ class ItemVenda
      */
     private $venda;
 
-    /**
-     * ItemVenda constructor.
-     * @param int $quantidade
-     * @param float $preco
-     * @param Produto $produto
-     * @param Venda $venda
-     */
-    public function __construct(
-        int $quantidade,
-        float $preco,
-        Produto $produto,
-        Venda $venda
-    ){
-        $this->quantidade = $quantidade;
-        $this->preco = $preco;
-        $this->produto = $produto;
-        $this->venda = $venda;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getQuantidade(): int
-    {
-        return $this->quantidade;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPreco(): float
-    {
-        return $this->preco;
-    }
-
-    /**
-     * @return Produto
-     */
-    public function getProduto(): Produto
-    {
-        return $this->produto;
-    }
-
-    /**
-     * @return Venda
-     */
-    public function getVenda(): Venda
-    {
-        return $this->venda;
-    }
-
-    /**
-     * @param int $quantidade
-     */
-    public function setQuantidade(int $quantidade): void
-    {
-        $this->quantidade = $quantidade;
-    }
-
-    /**
-     * @param float $preco
-     */
-    public function setPreco(float $preco): void
-    {
-        $this->preco = $preco;
-    }
-
-    /**
-     * @param Produto $produto
-     */
-    public function setProduto(Produto $produto): void
-    {
-        $this->produto = $produto;
-    }
-
-    /**
-     * @param Venda $venda
-     */
-    public function setVenda(Venda $venda): void
-    {
-        $this->venda = $venda;
-    }
 }

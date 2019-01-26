@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemVendaSeeder::class);
         $this->call(ContaSeeder::class);
         $this->call(PessoaGrupoSeeder::class);
-        $this->call(HistoricoOperacaoSeeder::class);
+        $this->call(LogSeeder::class);
     }
 
     private function init()

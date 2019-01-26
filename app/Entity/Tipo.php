@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @codeCoverageIgnore
- *
  * @ORM\Table(name="tipo")
  * @ORM\Entity(repositoryClass="App\Repository\TipoRepository")
  */
@@ -54,14 +52,6 @@ class Tipo
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTipo(): string
-    {
-        return $this->tipo;
     }
 
     /**

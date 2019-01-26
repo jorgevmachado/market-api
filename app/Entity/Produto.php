@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @codeCoverageIgnore
- *
  * @ORM\Table(name="produto")
  * @ORM\Entity(repositoryClass="App\Repository\ProdutoRepository")
  */
@@ -124,62 +122,6 @@ class Produto
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescricao(): string
-    {
-        return $this->descricao;
-    }
-
-    /**
-     * @return int
-     */
-    public function getEstoque(): int
-    {
-        return $this->estoque;
-    }
-
-    /**
-     * @return float
-     */
-    public function getCusto(): float
-    {
-        return $this->custo;
-    }
-
-    /**
-     * @return float
-     */
-    public function getVenda(): float
-    {
-        return $this->venda;
-    }
-
-    /**
-     * @return Fabricante
-     */
-    public function getFabricante(): Fabricante
-    {
-        return $this->fabricante;
-    }
-
-    /**
-     * @return Unidade
-     */
-    public function getUnidade(): Unidade
-    {
-        return $this->unidade;
-    }
-
-    /**
-     * @return Tipo
-     */
-    public function getTipo(): Tipo
-    {
-        return $this->tipo;
     }
 
     /**

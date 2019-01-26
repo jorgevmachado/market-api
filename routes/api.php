@@ -16,10 +16,10 @@ use Illuminate\Http\Request;
 /*
  * PUBLIC
  */
-
+ $onlyIndex = ['except' => ['create', 'edit', 'destroy']];
 // Estados
 Route::get('estados-list', 'EstadoController@list');
-Route::resource('estados', 'EstadoController', ['except' => ['create', 'edit', 'destroy']]);
+Route::resource('estados', 'EstadoController', $onlyIndex);
 
 // Cidades
 Route::resource('cidades', 'CidadeController');
@@ -41,7 +41,7 @@ Route::resource('produtos', 'ProdutoController');
 
 // Grupos
 Route::get('grupos-list', 'GrupoController@list');
-Route::resource('grupos', 'GrupoController', ['except' => ['create', 'edit', 'destroy']]);
+Route::resource('grupos', 'GrupoController', $onlyIndex);
 
 // Pessoas
 Route::resource('pessoas', 'PessoaController');
@@ -51,3 +51,6 @@ Route::resource('vendas', 'VendaController');
 
 // Contas
 Route::resource('contas', 'ContaController');
+
+// Logs
+Route::resource('logs', 'LogController',$onlyIndex);

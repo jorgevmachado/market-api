@@ -4,8 +4,11 @@ namespace App\Service\Fabricante\Handler;
 
 
 use App\Entity\Fabricante;
+use App\Entity\HistoricoOperacao;
+use App\MensagemSistema;
 use App\Repository\FabricanteRepository;
 use App\Service\Fabricante\Command\IncluirFabricanteCommand;
+use App\Service\HistoricoOperacaoService;
 use Doctrine\ORM\EntityManager;
 
 final class IncluirFabricanteHandler
@@ -18,19 +21,27 @@ final class IncluirFabricanteHandler
     /**
      * @var FabricanteRepository
      */
-    private $fabricanteRepository;
+    private $repository;
+
+    /**
+     * @var HistoricoOperacaoService
+     */
+    private $log;
 
     /**
      * IncluirFabricanteHandler constructor.
      * @param EntityManager $em
-     * @param FabricanteRepository $fabricanteRepository
+     * @param FabricanteRepository $repository
+     * @param HistoricoOperacaoService $log
      */
     public function __construct(
         EntityManager $em,
-        FabricanteRepository $fabricanteRepository
+        FabricanteRepository $repository,
+        HistoricoOperacaoService $log
     ){
         $this->em = $em;
-        $this->fabricanteRepository = $fabricanteRepository;
+        $this->repository = $repository;
+        $this->log = $log;
     }
 
     public function handle(IncluirFabricanteCommand $command)
@@ -38,13 +49,20 @@ final class IncluirFabricanteHandler
         $this->em->beginTransaction();
         try {
             
-            $fabricante = new Fabricante (
+            $entity = new Fabricante (
                     $command->getFabricante(),
                     $command->getSite()
             );
-            $this->fabricanteRepository->add($fabricante);
+            $this->repository->add($entity);
+            
+            $this->log->addHistoricoFabricante(
+                HistoricoOperacao::TIPO_OP_INSERT,
+                $entity,
+                MensagemSistema::get('LOG001')
+            );
+            
             $this->em->commit();
-            return $fabricante;
+            return $entity;
         } catch (\Exception $e) {
             $this->em->rollback();
             throw $e;

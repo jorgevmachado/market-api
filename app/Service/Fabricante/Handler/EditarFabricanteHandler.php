@@ -4,8 +4,11 @@ namespace App\Service\Fabricante\Handler;
 
 
 use App\Entity\Fabricante;
+use App\Entity\HistoricoOperacao;
+use App\MensagemSistema;
 use App\Repository\FabricanteRepository;
 use App\Service\Fabricante\Command\EditarFabricanteCommand;
+use App\Service\HistoricoOperacaoService;
 use Doctrine\ORM\EntityManager;
 
 final class EditarFabricanteHandler
@@ -18,34 +21,47 @@ final class EditarFabricanteHandler
     /**
      * @var FabricanteRepository
      */
-    private $fabricanteRepository;
+    private $repository;
+
+    /**
+     * @var HistoricoOperacaoService
+     */
+    private $log;
 
     /**
      * EditarFabricanteHandler constructor.
      * @param EntityManager $em
-     * @param FabricanteRepository $fabricanteRepository
+     * @param FabricanteRepository $repository
+     * @param HistoricoOperacaoService $log
      */
     public function __construct(
         EntityManager $em,
-        FabricanteRepository $fabricanteRepository
+        FabricanteRepository $repository,
+        HistoricoOperacaoService $log
     ){
         $this->em = $em;
-        $this->fabricanteRepository = $fabricanteRepository;
+        $this->repository = $repository;
+        $this->log = $log;
     }
 
     public function handle(EditarFabricanteCommand $command)
     {
         $this->em->beginTransaction();
         try {
-            /**
-             * @var Fabricante $fabricante
-             */
-            $fabricante = $this->fabricanteRepository->find($command->getFabricanteId());
-            if(is_numeric($fabricante->getId()) !== 0) {
-                $fabricante
+            /** @var Fabricante $entity*/
+            $entity = $this->repository->find($command->getFabricanteId());
+            if(is_numeric($entity->getId()) !== 0) {
+                $entity
                     ->setFabricante($command->getFabricante())
                     ->setSite($command->getSite());
-                $this->fabricanteRepository->add($fabricante);
+
+                $this->repository->add($entity);
+
+                $this->log->addHistoricoFabricante(
+                    HistoricoOperacao::TIPO_OP_UPDATE,
+                    $entity,
+                    MensagemSistema::get('LOG002')
+                );
                 $this->em->commit();
             }
         }catch (\Exception $e) {

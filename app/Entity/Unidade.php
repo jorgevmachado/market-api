@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @codeCoverageIgnore
- *
  * @ORM\Table(name="unidade")
  * @ORM\Entity(repositoryClass="App\Repository\UnidadeRepository")
  */
@@ -68,15 +66,6 @@ class Unidade
         return $this->id;
     }
 
-
-    /**
-     * @return string
-     */
-    public function getSigla(): string
-    {
-        return $this->sigla;
-    }
-
     /**
      * @param string $sigla
      * @return Unidade
@@ -85,14 +74,6 @@ class Unidade
     {
         $this->sigla = $sigla;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUnidade(): string
-    {
-        return $this->unidade;
     }
 
     /**

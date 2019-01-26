@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @codeCoverageIgnore
- *
  * @ORM\Table(name="estado")
  * @ORM\Entity(repositoryClass="App\Repository\EstadoRepository")
  */
@@ -50,37 +48,10 @@ class Estado
     private $estado;
 
     /**
-     * Estado constructor.
-     * @param string $sigla
-     * @param string $estado
-     */
-    public function __construct(string $sigla, string $estado)
-    {
-        $this->sigla = $sigla;
-        $this->estado = $estado;
-    }
-
-    /**
      * @return int
      */
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSigla(): string
-    {
-        return $this->sigla;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEstado(): string
-    {
-        return $this->estado;
     }
 }

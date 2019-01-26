@@ -5,9 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @codeCoverageIgnore
- *
- * @ORM\Table(name="HistoricoOperacao")
+ * @ORM\Table(name="historico_operacao")
  * @ORM\Entity(repositoryClass="App\Repository\HistoricoOperacaoRepository")
  */
 class HistoricoOperacao
@@ -131,95 +129,30 @@ class HistoricoOperacao
 
     /**
      * HistoricoOperacao constructor.
+     * @param string $nomeTabela
      * @param string $tipoOperacao
      * @param \DateTime $dataOperacao
-     * @param string $nomeTabela
      * @param int $numeroRegistro
      * @param string $justificativa
      * @param string $nomeColuna
      * @param string $valorColuna
      */
     public function __construct(
+        string $nomeTabela,
         string $tipoOperacao,
         \DateTime $dataOperacao,
-        string $nomeTabela,
         int $numeroRegistro,
         string $justificativa = null,
         string $nomeColuna = null,
         string $valorColuna = null
     )
     {
+        $this->nomeTabela = $nomeTabela;
         $this->tipoOperacao = $tipoOperacao;
         $this->dataOperacao = $dataOperacao;
-        $this->nomeTabela = $nomeTabela;
         $this->numeroRegistro = $numeroRegistro;
         $this->justificativa = $justificativa;
         $this->nomeColuna = $nomeColuna;
         $this->valorColuna = $valorColuna;
-
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTipoOperacao(): string
-    {
-        return $this->tipoOperacao;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDataOperacao(): \DateTime
-    {
-        return $this->dataOperacao;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNomeTabela(): string
-    {
-        return $this->nomeTabela;
-    }
-
-    /**
-     * @return int
-     */
-    public function getNumeroRegistro(): int
-    {
-        return $this->numeroRegistro;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNomeColuna(): string
-    {
-        return $this->nomeColuna;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValorColuna(): string
-    {
-        return $this->valorColuna;
-    }
-
-    /**
-     * @return string
-     */
-    public function getJustificativa(): string
-    {
-        return $this->justificativa;
     }
 }

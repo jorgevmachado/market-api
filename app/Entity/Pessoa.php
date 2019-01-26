@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @codeCoverageIgnore
- *
  * @ORM\Table(name="pessoa")
  * @ORM\Entity(repositoryClass="App\Repository\PessoaRepository")
  */
@@ -120,54 +118,6 @@ class Pessoa
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNome(): string
-    {
-        return $this->nome;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEndereco(): string
-    {
-        return $this->endereco;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBairro(): string
-    {
-        return $this->bairro;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTelefone(): string
-    {
-        return $this->telefone;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    /**
-     * @return Cidade
-     */
-    public function getCidade(): Cidade
-    {
-        return $this->cidade;
     }
 
     /**

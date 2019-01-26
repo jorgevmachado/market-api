@@ -4,6 +4,11 @@ namespace App\Business\Exception;
 
 use Throwable;
 
+/**
+ * @codeCoverageIgnore
+ * Class BusinessException
+ * @package App\Business\Exception
+ */
 class BusinessException extends \Exception
 {
     public function __construct(string $message = "", int $code = 0, Throwable $previous = null)

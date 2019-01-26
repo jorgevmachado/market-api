@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class HistoricoOperacaoSeeder extends Seeder
+class LogSeeder extends Seeder
 {
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -14,7 +14,7 @@ class HistoricoOperacaoSeeder extends Seeder
     private $repository;
 
     /**
-     * HistoricoOperacaoSeeder constructor
+     * LogSeeder constructor
      * @param \Doctrine\ORM\EntityManager $em
      * @param \App\Repository\HistoricoOperacaoRepository $repository
      */
@@ -28,29 +28,23 @@ class HistoricoOperacaoSeeder extends Seeder
 
     public function run()
     {
-        $delete = \App\Entity\HistoricoOperacao::TIPO_OP_DELETE;
-        $update = \App\Entity\HistoricoOperacao::TIPO_OP_UPDATE;
-        $cidadeId = 1;
-        $fabricanteId = 1;
-
         $entity1 = new \App\Entity\HistoricoOperacao(
-            $delete,
-            new \DateTime(),
             'cidade',
-            $cidadeId,
-            'Cidade excluida.'
+            'D',
+            new \DateTime(),
+            1,
+            'Exclusão de Dados'
         );
+
 
         $entity2 = new \App\Entity\HistoricoOperacao(
-            $update,
+            'cidade',
+            'I',
             new \DateTime(),
-            'fabricante',
-            $fabricanteId,
-            'Nome do fabricante alterado.',
-            'no_fabricante',
-            'Magia luxos'
-
+            2,
+            'Inclusão de Dados'
         );
+
         $this->repository->add($entity1);
         $this->repository->add($entity2);
     }

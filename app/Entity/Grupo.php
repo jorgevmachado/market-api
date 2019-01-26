@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @codeCoverageIgnore
- *
  * @ORM\Table(name="Grupo")
  * @ORM\Entity(repositoryClass="App\Repository\GrupoRepository")
  */
@@ -37,30 +35,4 @@ class Grupo
      * )
      */
     private $grupo;
-
-    /**
-     * Grupo constructor.
-     * @param string $grupo
-     */
-    public function __construct(string $grupo)
-    {
-        $this->grupo = $grupo;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGrupo(): string
-    {
-        return $this->grupo;
-    }
-
 }
