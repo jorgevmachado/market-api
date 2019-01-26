@@ -12,7 +12,7 @@ final class EditarPessoaCommand
     /**
      * @var string
      */
-    private $pessoa;
+    private $nome;
 
     /**
      * @var string
@@ -42,7 +42,7 @@ final class EditarPessoaCommand
     /**
      * EditarPessoaCommand constructor.
      * @param int $id
-     * @param string $pessoa
+     * @param string $nome
      * @param string $endereco
      * @param string $bairro
      * @param string $telefone
@@ -51,7 +51,7 @@ final class EditarPessoaCommand
      */
     public function __construct(
         int $id,
-        string $pessoa,
+        string $nome,
         string $endereco,
         string $bairro,
         string $telefone,
@@ -59,7 +59,7 @@ final class EditarPessoaCommand
         int $cidade
     ){
         $this->id = $id;
-        $this->pessoa = $pessoa;
+        $this->nome = $nome;
         $this->endereco = $endereco;
         $this->bairro = $bairro;
         $this->telefone = $telefone;
@@ -78,9 +78,9 @@ final class EditarPessoaCommand
     /**
      * @return string
      */
-    public function getPessoa(): string
+    public function getNome(): string
     {
-        return $this->pessoa;
+        return $this->nome;
     }
 
     /**

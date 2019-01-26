@@ -56,7 +56,7 @@ class PessoaController extends Controller
         $handler = app(IncluirPessoaHandler::class);
         $bus = $this->getBus(IncluirPessoaCommand::class, $handler);
         $bus->handle(new IncluirPessoaCommand(
-            $request->get('pessoa'),
+            $request->get('nome'),
             $request->get('endereco'),
             $request->get('bairro'),
             $request->get('telefone'),
@@ -72,7 +72,7 @@ class PessoaController extends Controller
         $bus = $this->getBus(EditarPessoaCommand::class, $handler);
         $bus->handle(new EditarPessoaCommand(
             $id,
-            $request->get('pessoa'),
+            $request->get('nome'),
             $request->get('endereco'),
             $request->get('bairro'),
             $request->get('telefone'),

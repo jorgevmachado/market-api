@@ -105,6 +105,7 @@ class Controller extends BaseController
     }
 
     /**
+     * @codeCoverageIgnore
      * @param string $title
      * @return Pdf
      * @throws \Throwable
@@ -130,6 +131,7 @@ class Controller extends BaseController
     }
 
     /**
+     * @codeCoverageIgnore
      * @param \Exception $e
      * @return JsonResponse
      */

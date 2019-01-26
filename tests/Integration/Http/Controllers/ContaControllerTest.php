@@ -21,7 +21,7 @@ class ContaControllerTest extends IntegrationTestCase
         "pago",
         "cliente"=> [
             self::ID,
-            "pessoa",
+            "nome",
             "endereco",
             "bairro",
             "telefone",
@@ -37,6 +37,20 @@ class ContaControllerTest extends IntegrationTestCase
             ]
         ]
     ];
+
+    public $filter = [
+        "filter" => [
+            "pago"=>"N",
+        ]
+    ];
+
+    public function testIndexContaFilterSucesso()
+    {
+        $payload = $this->filter;
+        $response = $this->get('api/contas?payload='. json_encode($payload));
+        $response->assertStatus(200);
+        $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
+    }
     
     public function testIndexContaSucesso()
     {

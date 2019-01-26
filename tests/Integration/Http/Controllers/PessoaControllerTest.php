@@ -15,7 +15,7 @@ class PessoaControllerTest extends IntegrationTestCase
     
     public $entity = [
         "id",
-        "pessoa",
+        "nome",
         "endereco",
         "bairro",
         "telefone",
@@ -32,13 +32,27 @@ class PessoaControllerTest extends IntegrationTestCase
     ];
     
     public $save = [
-        "pessoa" => "Marina Alves Ferreira",
+        "nome" => "Marina Alves Ferreira",
         "endereco" => "SQN 108 BLOCO E AP 603",
         "bairro" => "ASA NORTE",
         "telefone" => "(61)99810835",
         "email" => "marininha_70@hotmail.com",
         self::CIDADE => 7
     ];
+
+    public $filter = [
+        "filter" => [
+            "nome"=>"Amadeu Weirich",
+        ]
+    ];
+
+    public function testIndexPessoaFilterSucesso()
+    {
+        $payload = $this->filter;
+        $response = $this->get('api/pessoas?payload='. json_encode($payload));
+        $response->assertStatus(200);
+        $response->assertJsonStructure($this->getPaginateStructure([$this->entity]));
+    }
 
     public function testIndexPessoaSucesso()
     {

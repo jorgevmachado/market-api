@@ -36,7 +36,7 @@ class Pessoa
      *     options={"comment":"Nome da pessoa."}
      * )
      */
-    private $pessoa;
+    private $nome;
 
     /**
      * @var string
@@ -91,7 +91,7 @@ class Pessoa
 
     /**
      * Pessoa constructor.
-     * @param string $pessoa
+     * @param string $nome
      * @param string $endereco
      * @param string $bairro
      * @param string $telefone
@@ -99,14 +99,14 @@ class Pessoa
      * @param Cidade $cidade
      */
     public function __construct(
-        string $pessoa,
+        string $nome,
         string $endereco,
         string $bairro,
         string $telefone,
         string $email,
         Cidade $cidade
     ){
-        $this->pessoa = $pessoa;
+        $this->nome = $nome;
         $this->endereco = $endereco;
         $this->bairro = $bairro;
         $this->telefone = $telefone;
@@ -125,9 +125,9 @@ class Pessoa
     /**
      * @return string
      */
-    public function getPessoa(): string
+    public function getNome(): string
     {
-        return $this->pessoa;
+        return $this->nome;
     }
 
     /**
@@ -171,12 +171,12 @@ class Pessoa
     }
 
     /**
-     * @param string $pessoa
+     * @param string $nome
      * @return Pessoa
      */
-    public function setPessoa(string $pessoa): Pessoa
+    public function setNome(string $nome): Pessoa
     {
-        $this->pessoa = $pessoa;
+        $this->nome = $nome;
         return $this;
     }
 
